@@ -10,10 +10,11 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import musica from '../../data';
+import { useRoute } from '@react-navigation/native'
 
-export default function CardMusic() {
+export default function CardMusic({ navigation, route }) {
+  const { music, imgAlbum, author, album } = useRoute().params;
   const [play, setPlay] = useState(true);
-  const position = 2;
 
   Audio.setAudioModeAsync({
     interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
@@ -22,29 +23,28 @@ export default function CardMusic() {
     playThroughEarpieceAndroid: true
   })
 
-  const music = new Audio.Sound();
+  const musica = new Audio.Sound();
 
   useEffect(() => {
 
     async function repos() {
       try {
-        await music.loadAsync(musica[0].paths[position].music);
+        await musica.loadAsync(musica);
       } catch (err) {
         console.log(err)
       }
     }
 
     repos()
-    
+
   }, [])
-  
-  console.log(musica)
+
 
   return (
-    <View style={{ backgroundColor: "#fff", flex: 1}}>
+    <View style={{ backgroundColor: "#fff", flex: 1 }}>
       <SafeAreaView>
         <View style={styles.header}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <View style={styles.iconReply}>
               <MaterialIcons
                 name="keyboard-arrow-left"
@@ -66,7 +66,7 @@ export default function CardMusic() {
           <View style={styles.content}>
             <View style={styles.albumImage}>
               <Image
-                source={ musica[0].paths[position].imgAlbum }
+                source={imgAlbum}
                 style={{
                   width: 200,
                   height: 200,
@@ -80,7 +80,7 @@ export default function CardMusic() {
                   fontWeight: "bold",
                   fontSize: 18
                 }}>
-                { musica[0].paths[position].author }
+                {author}
               </Text>
               <Text
                 style={{
@@ -88,7 +88,7 @@ export default function CardMusic() {
                   marginTop: 3,
                   color: "gray"
                 }}>
-                { musica[0].paths[position].album }
+                {album}
               </Text>
             </View>
 

@@ -7,10 +7,12 @@ import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 
 import List from '../components/list_albums';
 import Home from '../components/home';
+import MusicCard from '../components/music_card';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const ListStack = createStackNavigator();
+const MusicCardStack = createStackNavigator();
 
 const Route = () => {
     return (
@@ -22,7 +24,8 @@ const Route = () => {
                     inactiveTintColor: "gray",
                     style: {
                         backgroundColor: "#e6e5e5",
-                    }
+                    },
+                    showLabel: false
                 }}
             >
                 <Tab.Screen
@@ -35,7 +38,7 @@ const Route = () => {
 
                 <Tab.Screen
                     options={{
-                        tabBarIcon: ({ color }) => <Ico color={color} />  
+                        tabBarIcon: ({ color }) => <Ico color={color} />
                     }}
                     name="Favoritos"
                     component={Favoritos}
@@ -44,12 +47,17 @@ const Route = () => {
                 <Tab.Screen
                     options={{
                         tabBarIcon: ({ color }) => <FontAwesome name="list" size={25} color={color} />,
-                        styleMedia : {
-                            backgroundColor: "orange"
-                        }
                     }}
                     name="List"
                     component={ListScreen}
+                />
+                <Tab.Screen
+                    options={{
+                        tabBarIcon: ({ color }) => <FontAwesome name="music" size={25} color={color} />,
+                        tabBarVisible: true,
+                    }}
+                    name="CardMusic"
+                    component={MusicCardScreen}
                 />
             </Tab.Navigator>
         </NavigationContainer>
@@ -76,13 +84,16 @@ export const Ico = props => {
             elevation: 5
         }}>
             <MaterialIcons name="favorite" size={50} color={props.color} />
-        </View>    
+        </View>
     )
 }
 
 export const HomeScreen = () => {
     return (
-        <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+        <HomeStack.Navigator 
+            screenOptions={{ 
+                headerShown: false, 
+            }}>
             <HomeStack.Screen name="home" component={Home} />
         </HomeStack.Navigator>
     )
@@ -96,6 +107,15 @@ export const ListScreen = () => {
     )
 }
 
+export const MusicCardScreen = () => {
+    return (
+        <MusicCardStack.Navigator 
+            screenOptions={{ headerShown: false }}>
+            <MusicCardStack.Screen name="music_card" component={MusicCard} />
+        </MusicCardStack.Navigator>
+    )
+}
+
 export const Favoritos = () => {
     return (
         <View style={{
@@ -103,7 +123,7 @@ export const Favoritos = () => {
             justifyContent: "center",
             alignItems: "center"
         }}>
-            <MaterialIcons name="favorite" size={100} color="gray"/>
+            <MaterialIcons name="favorite" size={100} color="gray" />
             <Text style={{
                 marginTop: 10
             }}>Favorites Page</Text>

@@ -17,7 +17,7 @@ const List = ({ navigation, route }) => {
     return (
         <View style={{ backgroundColor: "#fff", flex: 1 }}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <View style={styles.iconReply}>
                         <MaterialIcons
                             name="keyboard-arrow-left"
@@ -39,8 +39,19 @@ const List = ({ navigation, route }) => {
                 <FlatList
                     data={dados[id].paths} // <== Data recept
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity>
+                    renderItem={({ item, index }) => (
+                        <TouchableOpacity onPress={(() => {
+                            navigation.navigate("CardMusic", {
+                                screen : "music_card",
+                                params : {
+                                    id: index,
+                                    album : item.album,
+                                    author : item.author,
+                                    imgAlbum : item.imgAlbum,
+                                    music : item.music
+                                }
+                            })
+                        })}>
                             <View style={{
                                 margin: 10,
                                 width: 310,
