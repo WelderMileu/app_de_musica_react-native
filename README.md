@@ -1,0 +1,3 @@
+## Aplicativo de musica com expo
+
+Em desenvolvimento ...
