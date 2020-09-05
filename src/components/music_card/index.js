@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
-import musica from '../../data';
 import { useRoute } from '@react-navigation/native'
 
 export default function CardMusic({ navigation, route }) {
@@ -29,7 +28,7 @@ export default function CardMusic({ navigation, route }) {
 
     async function repos() {
       try {
-        await musica.loadAsync(musica);
+        await musica.loadAsync(music);
       } catch (err) {
         console.log(err)
       }
@@ -122,7 +121,7 @@ export default function CardMusic({ navigation, route }) {
 
               <TouchableOpacity onPress={() => {
                 play ? setPlay(false) : setPlay(true)
-                play ? music.playAsync() : music.pauseAsync();
+                play ? musica.playAsync() : musica.pauseAsync();
               }}>
                 <View style={styles.playPause}>
                   <MaterialIcons

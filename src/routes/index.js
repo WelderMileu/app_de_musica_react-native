@@ -25,7 +25,7 @@ const Route = () => {
                     style: {
                         backgroundColor: "#e6e5e5",
                     },
-                    showLabel: false
+                    showLabel: true
                 }}
             >
                 <Tab.Screen
@@ -47,18 +47,11 @@ const Route = () => {
                 <Tab.Screen
                     options={{
                         tabBarIcon: ({ color }) => <FontAwesome name="list" size={25} color={color} />,
+                        tabBarVisible : false
                     }}
-                    name="List"
-                    component={ListScreen}
-                />
-                <Tab.Screen
-                    options={{
-                        tabBarIcon: ({ color }) => <FontAwesome name="music" size={25} color={color} />,
-                        tabBarVisible: true,
-                    }}
-                    name="CardMusic"
-                    component={MusicCardScreen}
-                />
+                        name="List"
+                        component={ListScreen}
+                    />
             </Tab.Navigator>
         </NavigationContainer>
     )
@@ -101,8 +94,17 @@ export const HomeScreen = () => {
 
 export const ListScreen = () => {
     return (
-        <ListStack.Navigator screenOptions={{ headerShown: false }}>
+        <ListStack.Navigator 
+            initialRouteName="list"
+            screenOptions={{ 
+                headerShown: false,
+            }}
+            
+        >
             <ListStack.Screen name="list" component={List} />
+            <ListStack.Screen
+                name="CardMusic" 
+                component={MusicCardScreen}/>
         </ListStack.Navigator>
     )
 }
@@ -110,7 +112,9 @@ export const ListScreen = () => {
 export const MusicCardScreen = () => {
     return (
         <MusicCardStack.Navigator 
-            screenOptions={{ headerShown: false }}>
+            screenOptions={{ 
+                headerShown: false,
+            }}>
             <MusicCardStack.Screen name="music_card" component={MusicCard} />
         </MusicCardStack.Navigator>
     )
